@@ -11,3 +11,139 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(196, 196, 196); 
+  border-radius: 5px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #6610f2; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #560ec9; 
+}
+
+.create-pizza-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.create-pizza-title {
+  margin-bottom: 20px;
+}
+
+.create-pizza-box {
+  width: 1000px;
+  height: 600px;
+  box-shadow:  
+    #6610f3 2px 2px 4px,
+    #6610f2 0px 0px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  flex-direction: column;
+}
+
+.create-pizza-price{
+  font-size: 40px;
+}
+
+.form-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.input-img-container{
+  margin-right: 20px;
+}
+
+.pizza-img{
+  width: 400px;
+  height: 350px;
+}
+
+.input-name{
+  width: 450px;
+  margin-bottom: 10px;
+}
+
+.ingredient-list-container {
+  width: 400px;
+  height: 400px;
+  overflow:hidden; 
+  overflow-y:scroll;
+  margin: 0;
+  box-shadow: 
+    #303133 0px 2px 4px, 
+    #333 0px 0px 1px;
+  border-radius: 5px;
+}
+
+.ingredient-list{
+  padding: 0;
+  margin-left: 5px;
+  width: 400px;
+  height: 400px;
+}
+
+.ingredient-list-checkbox{
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.ingredient-list-item label {
+  cursor: pointer;
+  font-size: 21px;
+  padding: 2px 0;
+}
+
+.ingredient-list-item:hover {
+  transform: translateY(-2px);
+  transition: all .2s;
+}
+
+.form-submit {
+  margin-top: 60px;
+  justify-content: center;
+  text-align: center;
+}
+
+.form-submit .button-submit {
+  width: 200px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: #6610f2;
+  color: #fff;
+}
+
+.form-submit .button-submit:hover {
+  opacity: 0.9;
+}
+
+.form-submit .button-submit:active {
+  transform: translateY(2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.input-name-modal{
+  margin: 10px 0;
+}
+
+.btn-submit-modal{
+  background-color: #6610f2!important;
+  padding: 7px 20px;
+}
