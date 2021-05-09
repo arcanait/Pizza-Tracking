@@ -1,39 +1,51 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Button } from 'reactstrap';
 /** Componentes */
 import {ingredients} from '../../data/ingredients';
 import { formatNumber } from '../../scripts/formatNumber';
+import { showSwalFire } from '../../scripts/showSwalFire';
 import { CustomModal } from './sub-components/CustomModal';
 /** Otros */
-import Swal from 'sweetalert2'
+import { IngredientsItems } from './sub-components/IngredientsItems';
 
 export const CreatePizza = () => {
 
     const [pizzaName, setPizzaName] = useState('');
     const [pizzaPrice, setPizzaPrice] = useState(10000);
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [ingredientList, setIngredientList] = useState(0);
+    const [feedbackName, setFeedbackName] = useState(false);
 
     let history = useHistory();
-
+    
     const modalToggle = (e) => {
         e.preventDefault();
+        if (pizzaName.trim() === '') {
+            setFeedbackName(true);
+            return;
+        }
         setModalIsOpen(!modalIsOpen)
     };
 
+    /** Método para sumar tanto la cantidad como el precio de los ingredientes de la pizza */
     const handleInputCheckboxChange = (e) => {
         if (e.target.checked) {
             setPizzaPrice(prevPizzaPrice => prevPizzaPrice + parseInt(e.target.value))
-
+            setIngredientList((prevIngredientList) => prevIngredientList + 1)
         } else {
             setPizzaPrice(prevPizzaPrice => prevPizzaPrice - parseInt(e.target.value))
+            setIngredientList((prevIngredientList) => prevIngredientList - 1)
         }
     }
     
     const handleInputNameChange = (e) => {
         setPizzaName(e.target.value)
+        setFeedbackName(false)
     }
 
-    const handleSubmit = async({nameBuyer, phoneBuyer}) => {
+    /** Método para controlar el envío de datos al local storage */
+    const handleSubmit = async(nameBuyer, phoneBuyer) => {
         const newPizza = {
             pizzaName,
             pizzaPrice,
@@ -45,30 +57,27 @@ export const CreatePizza = () => {
             let pizzaList = JSON.parse(localStorage.getItem('pizzaList'));
             pizzaList.push(newPizza);
             await localStorage.setItem('pizzaList', JSON.stringify(pizzaList));
-            showSwalFire()
+            showSwalFire({
+                closeModal: setModalIsOpen(false),
+                callback: history.push('/dashboard')
+            })
         } else {
             await localStorage.setItem('pizzaList', JSON.stringify([newPizza]));
-            showSwalFire();
+            showSwalFire({
+                closeModal: setModalIsOpen(false),
+                callback: history.push('/dashboard')
+            });
         }
-    }
-
-    const showSwalFire = () => {
-        return(
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Proceso exitoso',
-                showConfirmButton: true,
-            }).then(() => {
-                history.push('/dashboard')
-            })
-        )
     }
 
     return (
         <div className='create-pizza-container'>
             <div className='create-pizza-title'>
                 <h2>¡Elige un nombre y elige los ingredientes que desees!</h2>
+                <small>Recuerda que deben ser mínimo 15 para hacer tu pedido |   
+                    <strong>número de ingredientes seleccionados: {ingredientList}</strong>
+                </small>                
+                
             </div>
             <div className='create-pizza-box'>
                 <div className='create-pizza-price'>
@@ -80,12 +89,18 @@ export const CreatePizza = () => {
                             <input 
                                 type="text" 
                                 placeholder="Ponle un nombre a tu pizza!"
-                                className="form-control input-name"
+                                className="form-control input-name "
                                 name="nameText"
                                 autoComplete="off"
                                 value={pizzaName}
                                 onChange={ handleInputNameChange }
                             />
+                            {
+                                feedbackName && 
+                                <>
+                                    <span style={{color: 'red'}}>El nombre de la pizza es requerido</span>
+                                </>
+                            }
                             <img 
                                 src={'./assets/pizza-img.png'} 
                                 alt="Niño pizzero" 
@@ -97,18 +112,12 @@ export const CreatePizza = () => {
                                 {
                                     ingredients.map( ingredient => {
                                         return (
-                                            <div
-                                            key={`list_${ingredient.name}`} 
-                                            className="ingredient-list-item">
-                                                <input 
-                                                    type="checkbox" 
-                                                    id={`check_${ingredient.name}`} 
-                                                    value={ingredient.price}
-                                                    onChange={ handleInputCheckboxChange }
-                                                    className="ingredient-list-checkbox">
-                                                </input>
-                                                <label htmlFor={`check_${ingredient.name}`}>{ingredient.name}</label>
-                                            </div>
+                                            <IngredientsItems
+                                                key={`list_${ingredient.name}`}
+                                                name={ingredient.name}
+                                                value={ingredient.price}
+                                                callback={handleInputCheckboxChange}
+                                            />
                                         )
                                     })
                                 }
@@ -116,9 +125,13 @@ export const CreatePizza = () => {
                         </div>
                     </div>
                     <div className="form-submit">
-                        <button className='button-submit' onClick={(e) => {modalToggle(e)}}>
+                        <Button 
+                            className='button-submit' 
+                            onClick={(e) => {modalToggle(e)}}
+                            disabled={ingredientList < 15}
+                        >
                             Siguiente
-                        </button>
+                        </Button>
                     </div>            
                     <CustomModal
                         modalIsOpen={modalIsOpen}
