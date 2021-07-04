@@ -26,6 +26,16 @@ export const DashBoard = () => {
     return (
         <div className='dashboard-container'>
             <Row>
+                <Col md={12}>
+                    <CustomCard 
+                        title={'Lista de Pizzas vendidas'}
+                        style={{padding: 20}}
+                        children={renderContent(
+                        <CustomTable 
+                            data={data} 
+                        />)}
+                    />
+                </Col>
                 <Col sm={12} md={6} lg={6}>
                     <CustomCard 
                         title={'Pizzas vendidas por mes (Cantidad - Monto)'}
@@ -36,16 +46,6 @@ export const DashBoard = () => {
                     <CustomCard 
                         title={'Pizzas vendidas por mes (Cantidad)'}
                         children={renderContent(<CustomPieChart param={piechartData(data)}/>)}
-                    />
-                </Col>
-                <Col md={12}>
-                    <CustomCard 
-                        title={'Lista de Pizzas vendidas'}
-                        style={{padding: 20}}
-                        children={renderContent(
-                        <CustomTable 
-                            data={data} 
-                        />)}
                     />
                 </Col>
             </Row>

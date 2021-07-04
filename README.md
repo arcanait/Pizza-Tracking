@@ -7,6 +7,10 @@
 5) Reactstrap
 6) Recharts
 7) React icons
+8) Validator
+9) firebase
+10) redux
+11) redux-thunk
 
 ## Proceso, problemas y soluciones:
 
@@ -40,7 +44,8 @@
 
     2.2) Gráfico de torta: este únicamente dará la cantidad por mes, sin embargo un gráfico de torta muestra mas trivialmente en qué meses se vendió más y en qué meses se vendió menos.
 
-    2.3) Tabla con la lista de las pizzas: Esta nos dá información más detallada de todas las pizzas que se vendieron historicamente, contando con : NOMBRE DE LA PIZZA, PRECIO, NOMBRE DEL COMPRADOR, TELÉFONO DEL COMPRADOR, FECHA DE COMPRA.
+    2.3) Tabla con la lista de las pizzas: Esta nos dá información más detallada de todas las pizzas que se vendieron historicamente, contando con : NOMBRE DE LA PIZZA, PRECIO, NOMBRE DEL COMPRADOR, TELÉFONO DEL COMPRADOR, FECHA DE COMPRA con su respectivo paginador.
+
 
 3) FACTORES TÉCNICOS:
     3.1) Para la lista de los ingredientes se decide renderizar de manéra dinámica mendiante un glosario en primera instancia con nombre y precio del ingrediente; esto de cara a que si se desea agregar más ingredientes con su respectivo precio en el futuro, mediante un mecanismo que los guarde en una base de datos, el dueño del software podrá crearlos sin necesidad de ingresar más código.

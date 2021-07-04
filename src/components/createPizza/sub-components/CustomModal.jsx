@@ -56,7 +56,12 @@ export const CustomModal = ({modalIsOpen, toggle, submit}) => {
             </ModalBody>
             <ModalFooter>
                 <Button className="btn-cancel-modal" onClick={toggle}>Cancelar</Button>
-                <Button className="btn-submit-modal" disabled={nameBuyer.trim() === '' || phoneBuyer.trim() === ''} onClick={() => { submit(nameBuyer, phoneBuyer) }}>Enviar</Button>
+                <Button 
+                    className="btn-submit-modal" 
+                    disabled={nameBuyer.trim() === '' || phoneBuyer.trim() === ''} 
+                    onClick={() => { submit(nameBuyer, phoneBuyer) }}>
+                        Enviar
+                </Button>
             </ModalFooter>
         </Modal>
     )

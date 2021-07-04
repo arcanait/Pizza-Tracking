@@ -74,9 +74,9 @@ export const CreatePizza = () => {
         <div className='create-pizza-container'>
             <div className='create-pizza-title'>
                 <h2>¡Elige un nombre y elige los ingredientes que desees!</h2>
-                <small>Recuerda que deben ser mínimo 15 para hacer tu pedido |   
+                <span> 
                     <strong>número de ingredientes seleccionados: {ingredientList}</strong>
-                </small>                
+                </span>                
                 
             </div>
             <div className='create-pizza-box'>
@@ -128,7 +128,7 @@ export const CreatePizza = () => {
                         <Button 
                             className='button-submit' 
                             onClick={(e) => {modalToggle(e)}}
-                            disabled={ingredientList < 15}
+                            disabled={ingredientList < 1}
                         >
                             Siguiente
                         </Button>

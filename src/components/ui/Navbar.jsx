@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom';
+import { startLogout } from '../../actions/auth';
 
 export const Navbar = () => {
     return (
@@ -12,7 +13,7 @@ export const Navbar = () => {
                 Pizza Tracking
             </Link>
 
-            <div className="navbar-collapse">
+            <div className="navbar-collapse justify-content-between">
                 <div className="navbar-nav">
 
                     <NavLink 
@@ -32,7 +33,16 @@ export const Navbar = () => {
                     >
                         Crear pizza
                     </NavLink>
+
                     
+                </div>
+                <div >
+                    <button 
+                        className='logout-button'
+                        onClick={startLogout}
+                    >
+                        Salir
+                    </button>
                 </div>
             </div>
 
